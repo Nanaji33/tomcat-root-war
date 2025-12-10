@@ -1,19 +1,18 @@
-pipeline {
+ pipeline {
     agent any
-    stages{
-        stage("buildcode"){
+    tools {
+        maven 'Maven-3.9'
+    }
+    stages {
+        stage("buildcode") {
             steps {
-                sh """
-                ./mvnw package -Dskiptests
-                """    
+                sh 'mvn clean package -DskipTests'
             }
         }
-        
-         stage("runtest"){
+
+        stage("runtest") {
             steps {
-                sh """
-                ./mvnw test
-                """    
+                sh 'mvn test'
             }
         }
     }
